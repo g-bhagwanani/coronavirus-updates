@@ -4,6 +4,7 @@ import csv
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import smtplib
+from db_conns import *
 
 sender_email = 'coronavirusupdates2910@gmail.com'
 sender_pw = 'Covid19Coronavirus'
@@ -29,42 +30,43 @@ def refresh_csv():
         writer.writerow(header)
         writer.writerows(rows)
 
-def send_mail(reciever_email, country):
+def send_mail(rcv_name, rcv_email, country):
     global sender_email
     global sender_pw
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
 
-    server.login(sender_email, sender_pw)
+        server.login(sender_email, sender_pw)
 
-    subject = 'Coronavirus stats in your country today!'
+        subject = 'Coronavirus stats in your country today!'
 
-    info = get_details_of(country)
+        info = get_details_of(country)
 
-    body = 'xyz'
+        body = 'Hi ' + rcv_name + ',\
+            \nToday in ' + country + '\
+            \nTotal cases: ' + str(info[0]) +'\
+            \nNew cases: ' + str(info[1]) + '\
+            \nTotal deaths: ' + str(info[2]) + '\
+            \nNew deaths: ' + str(info[3]) + '\
+            \nActive cases: ' + str(info[4]) + '\
+            \nTotal recovered: ' + str(info[5]) + '\
+            \nSerious, critical cases: ' + str(info[6])  + '\
+            \nTotal cases per million: ' + str(info[7])
 
-    body = 'Today in ' + country + '\
-        \nThere is new data on coronavirus:\
-        \nTotal cases: ' + str(info[0]) +'\
-        \nNew cases: ' + str(info[1]) + '\
-        \nTotal deaths: ' + str(info[2]) + '\
-        \nNew deaths: ' + str(info[3]) + '\
-        \nActive cases: ' + str(info[4]) + '\
-        \nTotal recovered: ' + str(info[5]) + '\
-        \nSerious, critical cases: ' + str(info[6])  + '\
-        \nTotal cases per million: ' + str(info[7])
+        msg = f"Subject: {subject}\n\n{body}"
 
-    msg = f"Subject: {subject}\n\n{body}"
+        server.sendmail(sender_email, rcv_email, msg)
+        print('Email has been sent to ' + rcv_email)
 
-    server.sendmail(sender_email, ['gaurav.bhagwanani@gmail.com', 'karanidnani10@gmail.com'], msg)
-    print('Hey Email has been sent!')
+        server.quit()
 
-    server.quit()
+    except Exception as e:
+        print(e)
 
-# incomplete code!
 def get_details_of(country):
     df = pd.read_csv('corona_details.csv')
     req = df.loc[df['Country,Other'].str.lower() == country.lower()]
@@ -91,4 +93,7 @@ def convert_to_int(string):
         return float(string)
 
 refresh_csv()
-send_mail('g.bhagwanani@somaiya.edu', 'India')
+subs = get_subs()
+for sub in subs:
+    print(sub)
+    send_mail(sub[0], sub[1], sub[2])

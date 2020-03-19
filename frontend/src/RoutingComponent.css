@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+  padding-top: 3%;
+  font-weight: strong;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fff;
+}
+
+.go_to_stats {
+  text-align: center;
+  color: black;
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  font-weight: strong;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fff;
+}

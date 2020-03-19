@@ -11,10 +11,11 @@ def subscribe():
         name = result['name']
         email = result['email']
         country = result['country']
+        # validate input here!!
         print(name, email, country)
         insert_to_db(name,email,country)
-        view_subs()
-        return redirect('http://localhost:3000/subscribed=yes')
+        print(get_subs())
+        return redirect('http://localhost:3000')
 
 if __name__ == '__main__':
     app.run(debug = True)

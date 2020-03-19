@@ -28,10 +28,12 @@ def insert_to_db(name,email,country):
         print(e)
     conn.commit()
 
-def view_subs():
+def get_subs():
     cursor.execute('SELECT * FROM subscriber_details')
+    subs = []
     for row in cursor:
-        print(row)
+        subs.append(row)
+    return subs
 
 # insert_to_db('gaurav', 'gaurav.bhagwanani@gmail.com', 'China')
 # view_subs()
