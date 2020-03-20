@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, url_for
 from db_conns import *
 
 app = Flask(__name__)
@@ -15,7 +15,12 @@ def subscribe():
         print(name, email, country)
         insert_to_db(name,email,country)
         print(get_subs())
-        return redirect('http://localhost:3000')
+        absolute_url = url_for('subscribe', _external = True)
+        ind = absolute_url.rfind('subscribe')
+        ind = ind - 5   # port number ka 4 digit and / => 5
+        new_url = absolute_url[:ind] + '3000'
+        print(new_url)
+        return redirect(new_url)
 
 if __name__ == '__main__':
     app.run(debug = True)

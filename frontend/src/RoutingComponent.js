@@ -10,7 +10,7 @@ function Home() {
         <Fragment>
             <h1 className = "title">Coronavirus Updates</h1>
             <Subscribe></Subscribe>
-            <h3><Link to='/stats' className = "go_to_stats">Click here if you want to view the current statistics of Coronavirus in your country</Link></h3>
+            <h5><Link to='/stats' className = "go_to_stats">Click here if you want to view the current statistics of Coronavirus in your country</Link></h5>
         </Fragment>
     );
 }
