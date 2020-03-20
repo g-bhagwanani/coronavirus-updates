@@ -1,34 +1,10 @@
 import pandas as pd
 import numpy as np
-import csv
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
 import smtplib
 from db_conns import *
 
 sender_email = 'coronavirusupdates2910@gmail.com'
 sender_pw = 'Covid19Coronavirus'
-
-def refresh_csv():
-    soup = BeautifulSoup(urlopen('https://www.worldometers.info/coronavirus/'), 'lxml')
-    print('soup generated')
-
-    table = soup.find('table', attrs={ "id" : "main_table_countries_today"})
-    print('table found')
-
-    rows = []
-
-    header = [a.text for a in table.find_all('th')]
-    print(header)
-
-    for row in table.find_all('tr'):
-        rows.append([val.text for val in row.find_all('td')])
-
-    with open('./corona_details.csv', 'w') as f:
-        print('csv file generated')
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(rows)
 
 def send_mail(rcv_name, rcv_email, country):
     global sender_email
@@ -92,7 +68,6 @@ def convert_to_int(string):
     except ValueError:
         return float(string)
 
-refresh_csv()
 subs = get_subs()
 for sub in subs:
     print(sub)
