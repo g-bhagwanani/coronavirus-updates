@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 import smtplib
 from db_conns import *
 
@@ -44,7 +45,10 @@ def send_mail(rcv_name, rcv_email, country):
         print(e)
 
 def get_details_of(country):
-    df = pd.read_csv('corona_details.csv')
+    abs_file_path = os.path.abspath(__file__)
+    csv_file_path = abs_file_path.replace(abs_file_path.split('/')[-1], '') + 'corona_details.csv'
+    print(csv_file_path)
+    df = pd.read_csv(csv_file_path)
     req = df.loc[df['Country,Other'].str.lower() == country.lower()]
     vals = list(req.to_dict(orient='records')[0].values())
     vals = list(map(convert_to_int, vals[1:]))
