@@ -1,12 +1,14 @@
 import pymysql
-conn = pymysql.connect(
-  host='corona-updates.cqeb1h33aftw.ap-south-1.rds.amazonaws.com',
-  user='admin',
-  password='Covid19Coronavirus_',
-  port=3306,
-  database = 'sample')
 
-cursor = conn.cursor()
+def create_connection():
+    conn = pymysql.connect(
+        host='corona-updates.cqeb1h33aftw.ap-south-1.rds.amazonaws.com',
+        user='admin',
+        password='Covid19Coronavirus_',
+        port=3306,
+        database = 'sample')
+    cursor = conn.cursor()
+    return conn, cursor
 
 # cursor.execute('CREATE TABLE subscriber_details(name varchar(30), email varchar(40), country varchar(20))')
 # Table created permanently
@@ -19,6 +21,7 @@ cursor = conn.cursor()
 # conn.commit()
 
 def insert_to_db(name,email,country):
+    conn, cursor = create_connection()
     try:
         insert_query = "INSERT INTO subscriber_details values (\'" + name + "\', \'" + email + "\', \'" + country + "\')"
         print(insert_query)
@@ -29,6 +32,7 @@ def insert_to_db(name,email,country):
     conn.commit()
 
 def get_subs():
+    conn, cursor = create_connection()
     cursor.execute('SELECT * FROM subscriber_details')
     subs = []
     for row in cursor:
