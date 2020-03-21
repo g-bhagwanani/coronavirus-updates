@@ -2,3 +2,5 @@ myvenv/
 .vscode/
 __pycache__/
 corona-key-pair-aws-ec2.pem
+corona_details.csv
+
