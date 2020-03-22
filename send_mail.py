@@ -29,10 +29,10 @@ def send_mail(rcv_name, rcv_email, country):
             \nNew cases: ' + str(info[1]) + '\
             \nTotal deaths: ' + str(info[2]) + '\
             \nNew deaths: ' + str(info[3]) + '\
-            \nActive cases: ' + str(info[4]) + '\
-            \nTotal recovered: ' + str(info[5]) + '\
-            \nSerious, critical cases: ' + str(info[6])  + '\
-            \nTotal cases per million: ' + str(info[7])
+            \nTotal Recovered: ' + str(info[4]) + '\
+            \nActive Cases: ' + str(info[5]) + '\
+            \nSerious and critical cases: ' + str(info[6])  + '\
+            \nTotal cases per million people: ' + str(info[7])
 
         msg = f"Subject: {subject}\n\n{body}"
 

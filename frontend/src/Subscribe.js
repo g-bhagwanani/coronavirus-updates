@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './Subscribe.css';
 import { Button, Form, FormGroup, Label, Input, Container, Col, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import CountrySuggestor from './CountrySuggestor';
+import './Subscribe.css';
 
 class Subscribe extends Component {
 
@@ -11,6 +12,12 @@ class Subscribe extends Component {
     }
 
     render() {
+
+        const onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
+            console.log(suggestion);
+            console.log(suggestionValue);
+            document.getElementById('country_hidden_field').value = suggestionValue;
+        }
 
         var SuccessAlert = <></>;
         var DangerAlert = <></>;
@@ -47,10 +54,13 @@ class Subscribe extends Component {
                     <Col>
                         <FormGroup>
                             <Label for="country">Country:</Label>
-                            <Input type="text" id="country" name="country" placeholder="Enter the country you reside in" /> 
+                            <CountrySuggestor placeholder="Enter the country you reside in" onSuggestionSelected={onSuggestionSelected} />
+                            <Input type="text" id="country_hidden_field" name="country" placeholder="Enter the country you reside in" />
                         </FormGroup>
                     </Col>
                     <Col className="text-center">
+                        {/* created this button to prevent default on enter form submit shit */}
+                        <Button type="submit" className="bali_ka_bakra" disabled aria-hidden="true"></Button>
                         <Button type="submit" color="dark" className="btn">Subscribe</Button>
                     </Col>
                 </Form>
