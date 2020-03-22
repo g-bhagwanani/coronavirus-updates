@@ -14,6 +14,7 @@ def valid_mail(email):
 @app.route('/subscribe', methods = ['GET', 'POST'])
 def subscribe():
     message = ''
+    country = 'world'
     if request.method == 'POST':
         print('reached here!')
         result = request.form
@@ -35,7 +36,10 @@ def subscribe():
     absolute_url = url_for('subscribe', _external = True)
     ind = absolute_url.rfind('subscribe')
     ind = ind - 5   # port number ka 4 digit and / => 5
-    new_url = absolute_url[:ind] + '3000/home/' + message
+    if message == 'subscribed':
+        new_url = absolute_url[:ind] + '3000/stats/' + country.lower()
+    else:
+        new_url = absolute_url[:ind] + '3000/home/' + message
     print(new_url)
     return redirect(new_url)
 

@@ -52,8 +52,7 @@
     border-radius: 7px;
 }
 
-/* also think about keyboard thing here */
-.stats_page_container .react-autosuggest__suggestions-list li:hover{
+.stats_page_container .react-autosuggest__suggestion--highlighted {
     background: #7fa6cc;
 }
 

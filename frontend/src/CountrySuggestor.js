@@ -3,36 +3,29 @@ import Autosuggest from 'react-autosuggest';
 import { Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { countries } from './countries';
 
-const countries = [
-    {
-        name: 'India'
-    },
-    {
-        name: 'Italy'
-    },
-    {
-        name: 'China'
-    },
-    {
-        name: 'Chile'
-    }
-];
+// const countries = [
+//     'India',
+//     'Italy',
+//     'China',
+//     'Chile'
+// ];
 
 const getSuggestions = value => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : countries.filter(country =>
-        country.name.toLowerCase().slice(0, inputLength) === inputValue
+        country.toLowerCase().slice(0, inputLength) === inputValue
     );
 };
 
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion;
 
 const renderSuggestion = suggestion => (
     <div>
-        {suggestion.name}
+        {suggestion}
     </div>
 );
 

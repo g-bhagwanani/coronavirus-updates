@@ -63,8 +63,7 @@
     border-radius: 7px;
 }
 
-/* also think about keyboard thing here */
-.form_container .react-autosuggest__suggestions-list li:hover{
+.form_container .react-autosuggest__suggestion--highlighted{
     background: #cccccc;
 }
 
