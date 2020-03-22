@@ -17,6 +17,57 @@
 }
 
 .btn {
-    border: 1px solid #f1f1f1;
+    border: 1px solid hsl(0, 0%, 95%);
     border-radius: 8px;
+}
+
+.form_container .bali_ka_bakra, .form_container #country_hidden_field {
+    display: none;
+}
+
+.form_container .input_country {
+    background: white;
+    border-radius: 7px;
+    padding: .375rem .75rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form_container .search_icon {
+    max-width: 3%;
+    color: #cccccc;
+}
+
+.form_container .react-autosuggest__input {
+    width: 100%;
+    border: none;
+    background: none;
+}
+
+.form_container .react-autosuggest__suggestions-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+}
+
+.form_container .react-autosuggest__suggestions-list {
+    list-style: none;
+    padding-left: 0;
+    background: #f2f2f2;
+    color: black;
+    border-radius: 7px;
+}
+
+/* also think about keyboard thing here */
+.form_container .react-autosuggest__suggestions-list li:hover{
+    background: #cccccc;
+}
+
+.form_container .react-autosuggest__suggestion {
+    padding-left: 5%;
 }
