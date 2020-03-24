@@ -4,8 +4,11 @@ import re
 import json
 from aux_functions import get_details_of
 from aux_functions import send_welcome_mail
+from flask_cors import cross_origin
 
 app = Flask(__name__)
+# CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 def valid_mail(email):
     regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
@@ -48,6 +51,7 @@ def subscribe():
     return redirect(new_url)
 
 @app.route('/getinfo', methods = ['GET'])
+@cross_origin()
 def getinfo():
     print(request.args)
     country = request.args.get('country')
@@ -55,9 +59,9 @@ def getinfo():
         print(country)
         values = get_details_of(country)
         print(values)
-        keys = ['Total Cases', 'Recovered', 'Total Deaths', 'Active Cases']
-        vals = [values[0], values[4], values[2], values[5]]
-        extras = [values[7], str(round(values[4]*100/values[0], 2)) + '%', str(round(values[2]*100/values[0], 2)) + '%', str(round(values[5]*100/values[0], 2)) + '%']
+        keys = ['Total Cases', 'Active Cases', 'Recovered', 'Total Deaths']
+        vals = [values[0], values[5], values[4], values[2]]
+        extras = [values[7], str(round(values[5]*100/values[0], 2)) + '%', str(round(values[4]*100/values[0], 2)) + '%', str(round(values[2]*100/values[0], 2)) + '%']
         extra_texts = ['cases per million population', 'of total cases', 'of total cases', 'of total cases']
         country_info = []
         for i in range(len(keys)):

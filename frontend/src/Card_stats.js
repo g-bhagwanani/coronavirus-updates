@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Card_stats.css';
-import { Card, Row, Col, CardTitle, CardText, CardFooter } from 'reactstrap';
+import { Card, Row, Col, CardTitle, CardText } from 'reactstrap';
 
 class Card_stats extends Component {
 

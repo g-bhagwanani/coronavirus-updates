@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import CountrySuggestor from './CountrySuggestor';
-import { Container, Input, Form, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 import './Stats.css';
-import Button from 'reactstrap/lib/Button';
 import Card_stats from './Card_stats';
 import Graphical_stats from './Graphical_stats';
 
 class Stats extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     render() {
 
