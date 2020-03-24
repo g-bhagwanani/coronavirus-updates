@@ -27,7 +27,7 @@ function RoutingComponent() {
             <Redirect exact from = '/' to = '/home' />
             <Route exact path ='/stats/:country' component={Stats} />
             <Redirect exact from = '/stats' to = '/stats/world' />
-            <Redirect from ='*' to = '/' />
+            {/* <Redirect from ='*' to = '/' /> */}
         </Switch>
     );
 }

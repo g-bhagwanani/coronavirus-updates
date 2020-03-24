@@ -9,16 +9,16 @@
     min-width: 90%;
 }
 
-.stats_page_container .hidden_btn, .stats_page_container #country_hidden_field {
-    display: none;
-}
-
 .stats_page_container .input_country {
     background: rgba(101, 166, 230, 0.6);
     border-radius: 7px;
     padding: 0.5% 1%;
     margin-left: 0;
     margin-right: 0;
+}
+
+.country_ka_search_box {
+    margin-bottom: 2%;
 }
 
 .stats_page_container .search_icon {

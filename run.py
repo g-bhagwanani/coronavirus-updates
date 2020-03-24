@@ -1,6 +1,9 @@
 from flask import Flask, request, redirect, url_for
 from db_conns import *
 import re
+import json
+from aux_functions import get_details_of
+from aux_functions import send_welcome_mail
 
 app = Flask(__name__)
 
@@ -31,6 +34,7 @@ def subscribe():
         else:
             message = 'subscribed'
             insert_to_db(name,email,country)
+            send_welcome_mail(name, email, country)
         print(message)
         print(get_subs())
     absolute_url = url_for('subscribe', _external = True)
@@ -43,21 +47,25 @@ def subscribe():
     print(new_url)
     return redirect(new_url)
 
-# country stats thing!
-@app.route('/countrystats', methods = ['GET', 'POST'])
-def countrystats():
-    stats_key = 'world'
-    if request.method == 'POST':
-        result = request.form
-        print(result)
-        stats_key = result['country'].lower()
-    print(stats_key)
-    absolute_url = url_for('subscribe', _external = True)
-    ind = absolute_url.rfind('subscribe')
-    ind = ind - 5   # port number ka 4 digit and / => 5
-    new_url = absolute_url[:ind] + '3000/stats/' + stats_key
-    print(new_url)
-    return redirect(new_url)
-    
+@app.route('/getinfo', methods = ['GET'])
+def getinfo():
+    print(request.args)
+    country = request.args.get('country')
+    if country:
+        print(country)
+        values = get_details_of(country)
+        print(values)
+        keys = ['Total Cases', 'Recovered', 'Total Deaths', 'Active Cases']
+        vals = [values[0], values[4], values[2], values[5]]
+        extras = [values[7], str(round(values[4]*100/values[0], 2)) + '%', str(round(values[2]*100/values[0], 2)) + '%', str(round(values[5]*100/values[0], 2)) + '%']
+        extra_texts = ['cases per million population', 'of total cases', 'of total cases', 'of total cases']
+        country_info = []
+        for i in range(len(keys)):
+            country_info.append({'title': keys[i], 'value': vals[i], 'extra_val': extras[i], 'extra_text': extra_texts[i]})
+        print(country_info)
+        return json.dumps(country_info)
+    else:
+        return 'not allowed bhenchod'
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
