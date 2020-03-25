@@ -56,6 +56,8 @@ def getinfo():
     print(request.args)
     country = request.args.get('country')
     if country:
+        if country == 'world':
+            country = 'total:'
         print(country)
         values = get_details_of(country)
         print(values)
