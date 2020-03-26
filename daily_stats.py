@@ -17,6 +17,9 @@ for country in list_of_countries:
         active_cases.append(info[5])
         total_deaths.append(info[2])
     except Exception as e:
+        total_cases.append(-1)
+        active_cases.append(-1)
+        total_deaths.append(-1)
         print(country)
         print(e)
 
