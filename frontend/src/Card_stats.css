@@ -10,6 +10,12 @@
     border: none;
 } */
 
+.stats_page_container .cards_row {
+    margin-bottom: 2%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .deet_card.col-6 {
     padding-left: 5px;
     padding-right: 5px;

@@ -71,12 +71,7 @@ class Card_stats extends Component {
         });
 
         return (
-            // <Table striped className="stats_table">
-            //     <tbody>
-            //         {table_rows}
-            //     </tbody>
-            // </Table>
-            <Row>
+            <Row className="cards_row">
                 {cards}
             </Row>
         );

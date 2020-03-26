@@ -3,7 +3,7 @@ import CountrySuggestor from './CountrySuggestor';
 import { Container } from 'reactstrap';
 import './Stats.css';
 import Card_stats from './Card_stats';
-import Graphical_stats from './Graphical_stats';
+import GraphicalStats from './GraphicalStats';
 
 class Stats extends Component {
 
@@ -29,6 +29,7 @@ class Stats extends Component {
                         <CountrySuggestor className="country_ip" placeholder="Type a country to get the stats" onSuggestionSelected={onSuggestionSelected} />
                     </div>
                     <Card_stats country={country} />
+                    <GraphicalStats country={country} />
                 </Container>
             </>
         )
