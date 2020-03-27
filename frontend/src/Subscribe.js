@@ -30,6 +30,9 @@ class Subscribe extends Component {
         else if (this.props.message === 'incomplete') {
             DangerAlert = <Alert color="danger">Please fill all the fields to subscribe successfully</Alert>;
         }
+        else if (this.props.message === 'issue') {
+            DangerAlert = <Alert color="danger">There's an issue on our side, please try again later</Alert>;
+        }
 
         return (
             <Container className="form_container">

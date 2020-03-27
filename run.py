@@ -36,10 +36,16 @@ def subscribe():
             message = 'wrongemail'
         else:
             message = 'subscribed'
-            insert_to_db(name,email,country)
+            try:
+                insert_to_db(name,email,country)
+            except:
+                message = 'issue'
             send_welcome_mail(name, email, country)
         print(message)
-        print(get_subs())
+        try:
+            print(get_subs())
+        except:
+            pass
     absolute_url = url_for('subscribe', _external = True)
     ind = absolute_url.rfind('subscribe')
     ind = ind - 5   # port number ka 4 digit and / => 5
