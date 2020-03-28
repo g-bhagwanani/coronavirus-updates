@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CanvasJSReact from './canvasjs_assets/canvasjs.react';
 
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class PieChart extends Component {
@@ -61,14 +60,6 @@ class PieChart extends Component {
     }
 
     render() {
-    
-        var stuff = this.state.deets;
-
-        const yo = [
-            { name: "Active Cases", y: 486, percentage: 30, color: "#bc00eb" },
-            { name: "Recovered", y: 40, percentage: 40, color: "#e85d00" },
-            { name: "Deceased", y: 10, percentage: 40, color: "#2ee800" }
-        ];
 
         const options = {
             backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -80,7 +71,7 @@ class PieChart extends Component {
 			data: [{
 				type: "doughnut",
 				showInLegend: true,
-				indexLabel: "{name} - {percentage}%",
+				indexLabel: "{name} - {percentage}",
                 yValueFormatString: "###,###",
 				dataPoints: this.state.dataPoints
 			}]

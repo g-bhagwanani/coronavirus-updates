@@ -4,6 +4,7 @@ import { Container } from 'reactstrap';
 import './Stats.css';
 import Card_stats from './Card_stats';
 import GraphicalStats from './GraphicalStats';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class Stats extends Component {
 
@@ -23,7 +24,7 @@ class Stats extends Component {
 
         return (
             <>
-                <h1 className = "title">Coronavirus Updates</h1>
+                <h1 className = "title"><Link to='/'>Coronavirus Updates</Link></h1>
                 <Container className="stats_page_container">
                     <div className="country_ka_search_box">
                         <CountrySuggestor className="country_ip" placeholder="Type a country to get the stats" onSuggestionSelected={onSuggestionSelected} />
