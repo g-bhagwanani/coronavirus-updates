@@ -1,12 +1,14 @@
 import pymysql
+import local_settings
 
 def create_connection():
     conn = pymysql.connect(
-        host='corona-updates.cqeb1h33aftw.ap-south-1.rds.amazonaws.com',
-        user='admin',
-        password='Covid19Coronavirus_',
-        port=3306,
-        database = 'sample')
+        host = local_settings.db_host,
+        user = local_settings.db_user,
+        password = local_settings.db_password,
+        port = local_settings.db_port,
+        database = local_settings.db_database
+    )
     cursor = conn.cursor()
     return conn, cursor
 

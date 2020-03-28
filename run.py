@@ -77,7 +77,7 @@ def getinfo():
         print(country_info)
         return json.dumps(country_info)
     else:
-        return 'not allowed bhenchod'
+        return 'not allowed'
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
