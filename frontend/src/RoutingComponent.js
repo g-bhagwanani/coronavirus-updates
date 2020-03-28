@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Subscribe from './Subscribe';
 import './RoutingComponent.css';
 import Stats from './Stats';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Home({ match }) {
 
@@ -13,7 +14,7 @@ function Home({ match }) {
 
     return (
         <Fragment>
-            <h1 className = "title">Coronavirus Updates</h1>
+            <h1 className = "title"><Link to='/'>Coronavirus Updates</Link></h1>
             <Subscribe message={send}></Subscribe>
         </Fragment>
     );

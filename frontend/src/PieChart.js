@@ -80,7 +80,7 @@ class PieChart extends Component {
 			data: [{
 				type: "doughnut",
 				showInLegend: true,
-				indexLabel: "{name} - {percentage}%",
+				indexLabel: "{name} - {percentage}",
                 yValueFormatString: "###,###",
 				dataPoints: this.state.dataPoints
 			}]
