@@ -1,10 +1,18 @@
 import csv
 import os
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 
 def refresh_csv():
-    soup = BeautifulSoup(urlopen('https://www.worldometers.info/coronavirus/'), 'lxml')
+
+    url = 'https://www.worldometers.info/coronavirus/'
+    headers = {'User-Agent' : 'Mozilla'}
+
+    request = Request(url, headers = headers)
+
+    httpResp = urlopen(request)
+
+    soup = BeautifulSoup(httpResp, 'lxml')
     print('soup generated')
 
     table = soup.find('table', attrs={ "id" : "main_table_countries_today"})
