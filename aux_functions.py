@@ -188,7 +188,7 @@ def get_details_of(country):
     df = pd.read_csv(csv_file_path)
     req = df.loc[df['Country,Other'].str.lower() == country.lower()]
     vals = list(req.to_dict(orient='records')[0].values())
-    vals = list(map(convert_to_int, vals[1:]))
+    vals = list(map(convert_to_int, vals[1:-1]))
     print(vals)
     return vals
 
