@@ -68,3 +68,7 @@ a {
 .stats_page_container .react-autosuggest__suggestion {
     padding-left: 5%;
 }
+
+.canvasjs-chart-canvas {
+    border-radius: 7px;
+}
