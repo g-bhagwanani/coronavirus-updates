@@ -218,3 +218,42 @@ def convert_to_int(string):
         return int(string)
     except ValueError:
         return float(string)
+
+def get_history_of(country):
+    abs_file_path = os.path.abspath(__file__)
+    active_file_path = abs_file_path.replace(abs_file_path.split('/')[-1], '') + 'daily_active.csv'
+    total_file_path = abs_file_path.replace(abs_file_path.split('/')[-1], '') + 'daily_cases.csv'
+    deaths_file_path = abs_file_path.replace(abs_file_path.split('/')[-1], '') + 'daily_deaths.csv'
+
+    df1 = pd.read_csv(total_file_path)
+    df1.columns = map(str.lower, df1.columns)
+    dates = list(df1['date'])
+    total_cases = list(df1[country.lower()])
+
+    df1 = pd.read_csv(active_file_path)
+    df1.columns = map(str.lower, df1.columns)
+    active_cases = list(df1[country.lower()])
+
+    df1 = pd.read_csv(deaths_file_path)
+    df1.columns = map(str.lower, df1.columns)
+    deaths_cases = list(df1[country.lower()])
+
+    # recovered = total - active
+    recovered_cases = list(map(int.__sub__, total_cases, active_cases))
+    # recovered = recovered - deaths
+    recovered_cases = list(map(int.__sub__, recovered_cases, deaths_cases))
+
+    active_dict = []
+    recovered_dict = []
+    deaths_dict = []
+
+    for i in range(len(dates)):
+        active_dict.append({'label' : dates[i], 'y' : active_cases[i]})
+        recovered_dict.append({'label' : dates[i], 'y' : recovered_cases[i]})
+        deaths_dict.append({'label' : dates[i], 'y' : deaths_cases[i]})
+
+    return {
+        'active' : active_dict,
+        'recovered' : recovered_dict,
+        'deaths' : deaths_dict
+    }

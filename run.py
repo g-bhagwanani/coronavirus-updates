@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for
 from db_conns import *
 import re
 import json
-from aux_functions import get_details_of
+from aux_functions import get_details_of, get_history_of
 from aux_functions import send_welcome_mail
 from flask_cors import cross_origin
 
@@ -76,6 +76,19 @@ def getinfo():
             country_info.append({'title': keys[i], 'value': vals[i], 'extra_val': extras[i], 'extra_text': extra_texts[i]})
         print(country_info)
         return json.dumps(country_info)
+    else:
+        return 'not allowed'
+
+@app.route('/gethistory', methods = ['GET'])
+@cross_origin()
+def gethistory():
+    print(request.args)
+    country = request.args.get('country')
+    if country:
+        print(country)
+        history = get_history_of(country)
+        print(history)
+        return json.dumps(history)
     else:
         return 'not allowed'
 

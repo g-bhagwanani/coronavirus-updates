@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PieChart from './PieChart';
+import { Row, Col } from 'reactstrap';
+import StackedColChart from './StackedColChart';
 
 class GraphicalStats extends Component {
 
@@ -9,7 +11,21 @@ class GraphicalStats extends Component {
 
     render () {
         return (
-            <PieChart country={this.props.country} />
+            <>
+            <Row>
+                <Col>
+                    <PieChart country={this.props.country} />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs="12" sm="6">
+                    <StackedColChart country={this.props.country} />
+                </Col>
+                <Col xs="12" sm="6">
+                    xxx
+                </Col>
+            </Row>
+            </>
         );
     }
 }
