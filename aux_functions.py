@@ -141,15 +141,7 @@ def send_regular_mail(rcv_name, rcv_email, country):
                         <td style="border-style:solid; border-width:1px">{}</td>
                     </tr>
                     <tr>
-                        <td style="border-style:solid; border-width:1px">New cases</td>
-                        <td style="border-style:solid; border-width:1px">{}</td>
-                    </tr>
-                    <tr>
                         <td style="border-style:solid; border-width:1px">Total deaths</td>
-                        <td style="border-style:solid; border-width:1px">{}</td>
-                    </tr>
-                    <tr>
-                        <td style="border-style:solid; border-width:1px">New deaths</td>
                         <td style="border-style:solid; border-width:1px">{}</td>
                     </tr>
                     <tr>
@@ -174,14 +166,12 @@ def send_regular_mail(rcv_name, rcv_email, country):
             <p>If you would like to unsubscribe, please click <a href="{}">here</a></p>
         </body>
     </html>
-    """.format(rcv_name, country, str(info[0]), str(info[1]), str(info[2]), str(info[3]), str(info[4]), str(info[5]), str(info[6]), str(info[7]), website_url + ':3000/stats/' + country, website_url + ':5000/unsubscribe?email=' + rcv_email)
+    """.format(rcv_name, country, str(info[0]), str(info[2]), str(info[4]), str(info[5]), str(info[6]), str(info[7]), website_url + ':3000/stats/' + country, website_url + ':5000/unsubscribe?email=' + rcv_email)
 
     text_body = 'Hi ' + rcv_name + ',\
         \nToday in ' + country + '\
         \nTotal cases: ' + str(info[0]) +'\
-        \nNew cases: ' + str(info[1]) + '\
         \nTotal deaths: ' + str(info[2]) + '\
-        \nNew deaths: ' + str(info[3]) + '\
         \nTotal Recovered: ' + str(info[4]) + '\
         \nActive Cases: ' + str(info[5]) + '\
         \nSerious and critical cases: ' + str(info[6])  + '\
