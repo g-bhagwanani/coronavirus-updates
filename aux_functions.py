@@ -5,6 +5,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import local_settings
+import re
 
 sender_email = local_settings.official_email
 sender_pw = local_settings.official_pw
@@ -12,7 +13,14 @@ website_url = local_settings.website_url
 
 list_of_countries = ['China', 'Italy', 'Spain', 'Iran', 'Germany', 'USA', 'France', 'S. Korea', 'Switzerland', 'UK', 'Netherlands', 'Austria', 'Belgium', 'Norway', 'Sweden', 'Denmark', 'Malaysia', 'Portugal', 'Japan', 'Canada', 'Australia', 'Czechia', 'Diamond Princess', 'Israel', 'Brazil', 'Ireland', 'Pakistan', 'Greece', 'Luxembourg', 'Qatar', 'Finland', 'Chile', 'Poland', 'Iceland', 'Singapore', 'Indonesia', 'Ecuador', 'Turkey', 'Slovenia', 'Thailand', 'Romania', 'Bahrain', 'Estonia', 'Saudi Arabia', 'Egypt', 'Hong Kong', 'Russia', 'India', 'Peru', 'Philippines', 'South Africa', 'Iraq', 'Mexico', 'Lebanon', 'Kuwait', 'Colombia', 'San Marino', 'UAE', 'Panama', 'Slovakia', 'Armenia', 'Taiwan', 'Bulgaria', 'Argentina', 'Croatia', 'Serbia', 'Latvia', 'Uruguay', 'Vietnam', 'Algeria', 'Costa Rica', 'Hungary', 'Faeroe Islands', 'Brunei ', 'Andorra', 'Cyprus', 'Morocco', 'Sri Lanka', 'Dominican Republic', 'Albania', 'North Macedonia', 'Belarus', 'Jordan', 'Bosnia and Herzegovina', 'Moldova', 'Malta', 'Tunisia', 'Kazakhstan', 'Cambodia', 'Lithuania', 'Oman', 'Palestine', 'Guadeloupe', 'Azerbaijan', 'Georgia', 'Venezuela', 'Burkina Faso', 'New Zealand', 'Senegal', 'Uzbekistan', 'Martinique', 'Liechtenstein', 'Réunion', 'Ukraine', 'Afghanistan', 'Honduras', 'Bangladesh', 'Cameroon', 'DRC', 'Macao', 'Cuba', 'Jamaica', 'Bolivia', 'Ghana', 'Guyana', 'French Guiana', 'Guam', 'Maldives', 'Montenegro', 'Paraguay', 'Guatemala', 'Nigeria', 'Mauritius', 'Monaco', 'Channel Islands', 'French Polynesia', 'Rwanda', 'Gibraltar', 'Ivory Coast', 'Ethiopia', 'Togo', 'Trinidad and Tobago', 'Puerto Rico', 'Kenya', 'Seychelles', 'Equatorial Guinea', 'Kyrgyzstan', 'Mayotte', 'Mongolia', 'Tanzania', 'Aruba', 'Barbados', 'Saint Martin', 'Suriname', 'Cayman Islands', 'Curaçao', 'Gabon', 'Bahamas', 'CAR', 'Congo', 'Namibia', 'St. Barth', 'U.S. Virgin Islands', 'Sudan', 'Benin', 'Bermuda', 'Bhutan', 'Greenland', 'Guinea', 'Haiti', 'Isle of Man', 'Liberia', 'Mauritania', 'New Caledonia', 'Saint Lucia', 'Zambia', 'Nepal', 'Angola', 'Antigua and Barbuda', 'Cabo Verde', 'Chad', 'Djibouti', 'El Salvador', 'Fiji', 'Gambia', 'Vatican City', 'Montserrat', 'Nicaragua', 'Niger', 'Papua New Guinea', 'St. Vincent Grenadines', 'Sint Maarten', 'Somalia', 'Eswatini', 'World']
 
-def email_sender(rcv_name, rcv_email, country, subject, html_body, text_body):
+def valid_mail(email):
+    regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+    if re.search(regex, email):
+        return True
+    else:
+        return False
+
+def email_sender(rcv_email, subject, html_body, text_body):
     global sender_email
     global sender_pw
 
@@ -113,7 +121,7 @@ def send_welcome_mail(rcv_name, rcv_email, country):
         \nFor more information, please visit ' + website_url + ':3000/stats/' + country + '\
         \nYou will now recieve regular coronavirus updates from us!'
 
-    email_sender(rcv_name, rcv_email, country, subject, html_body, text_body)
+    email_sender(rcv_email, subject, html_body, text_body)
 
 def send_regular_mail(rcv_name, rcv_email, country):
 
@@ -163,9 +171,10 @@ def send_regular_mail(rcv_name, rcv_email, country):
                 </tbody>
             </table>
             <p>For more information please visit <a href="{}">our website</a></p>
+            <p>If you would like to unsubscribe, please click <a href="{}">here</a></p>
         </body>
     </html>
-    """.format(rcv_name, country, str(info[0]), str(info[1]), str(info[2]), str(info[3]), str(info[4]), str(info[5]), str(info[6]), str(info[7]), website_url + ':3000/stats/' + country)
+    """.format(rcv_name, country, str(info[0]), str(info[1]), str(info[2]), str(info[3]), str(info[4]), str(info[5]), str(info[6]), str(info[7]), website_url + ':3000/stats/' + country, website_url + ':5000/unsubscribe?email=' + rcv_email)
 
     text_body = 'Hi ' + rcv_name + ',\
         \nToday in ' + country + '\
@@ -179,7 +188,25 @@ def send_regular_mail(rcv_name, rcv_email, country):
         \nTotal cases per million people: ' + str(info[7]) + '\
         \nFor more information, please visit ' + website_url + ':3000/stats/' + country
 
-    email_sender(rcv_name, rcv_email, country, subject, html_body, text_body)
+    email_sender(rcv_email, subject, html_body, text_body)
+
+def send_goodbye_mail(name, email):
+    
+    subject = "Unsubscribe from Coronavirus Updates"
+
+    html_body = """
+    Hi {},<br>
+    You will no longer recieve coronavirus updates via email from us.<br>
+    If you would like to re-subscribe, please visit <a href="{}">our website</a>
+    """.format(name, website_url + ':3000')
+
+    text_body ="""\
+    Hi {},
+    You will no longer recieve coronavirus updates via email from us.
+    If you would like to re-subscribe, please visit {}
+    """.format(name, website_url + ':3000')
+
+    email_sender(email, subject, html_body, text_body)
 
 def get_details_of(country):
     abs_file_path = os.path.abspath(__file__)

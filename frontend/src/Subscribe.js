@@ -33,6 +33,9 @@ class Subscribe extends Component {
         else if (this.props.message === 'issue') {
             DangerAlert = <Alert color="danger">There's an issue on our side, please try again later</Alert>;
         }
+        else if (this.props.message === 'unsubscribed') {
+            DangerAlert = <Alert color="warning">You have been unsubscribed successfully</Alert>;
+        }
 
         return (
             <Container className="form_container">

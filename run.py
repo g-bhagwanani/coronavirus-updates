@@ -1,21 +1,13 @@
 from flask import Flask, request, redirect, url_for
-from db_conns import *
+from db_conns import insert_to_db, get_subs, remove_from_db, find_sub
 import re
 import json
-from aux_functions import get_details_of, get_history_of
-from aux_functions import send_welcome_mail
+from aux_functions import get_details_of, get_history_of, send_welcome_mail, valid_mail, send_goodbye_mail
 from flask_cors import cross_origin
 
 app = Flask(__name__)
 # CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
-
-def valid_mail(email):
-    regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
-    if re.search(regex, email):
-        return True
-    else:
-        return False
 
 @app.route('/subscribe', methods = ['GET', 'POST'])
 def subscribe():
@@ -91,6 +83,25 @@ def gethistory():
         return json.dumps(history)
     else:
         return 'not allowed'
+
+@app.route('/unsubscribe', methods = ['GET'])
+def unsubscribe():
+    print(dict(request.args))
+    email = request.args['email']
+    ans = find_sub(email)
+    if len(ans) == 0:
+        pass
+        return {'message' : 'not a subscriber'}
+    else:
+        print('removing', email, 'from the database')
+        send_goodbye_mail(ans[0][0], email)
+        remove_from_db(email)
+        absolute_url = url_for('unsubscribe', _external = True)
+        ind = absolute_url.rfind('unsubscribe')
+        ind = ind - 5   # port number ka 4 digit and / => 5
+        new_url = absolute_url[:ind] + '3000/home/unsubscribed'
+        print(new_url)
+        return redirect(new_url)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
