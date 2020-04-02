@@ -39,22 +39,20 @@ class StackedColChart extends Component {
 
         var countryy = newProps.country;
 
-        // fetch(this.state.flask_url + '/getinfo?country=' + countryy)
-        //     .then(res => res.json())
-        //         .then(
-        //             (result) => {
-        //                 this.setState({
-        //                     dataPoints : [
-        //                         { name: "Active Cases", y: result[1].value, percentage: result[1].extra_val, color: "#0490e8" },
-        //                         { name: "Recovered", y: result[2].value, percentage: result[2].extra_val, color: "#e6c004" },
-        //                         { name: "Deceased", y: result[3].value, percentage: result[3].extra_val, color: "#e60448" }
-        //                     ]
-        //                 });
-        //             },
-        //             (error) => {
-        //                 console.log(error);
-        //             }
-        //         )
+        fetch(this.state.flask_url + '/gethistory?country=' + countryy)
+            .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            activeDataPoints : result.active,
+                            recoveredDataPoints : result.recovered,
+                            deathDataPoints : result.deaths
+                        });
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                )
     }
 
     render() {
