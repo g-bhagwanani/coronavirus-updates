@@ -3,6 +3,8 @@
 # coronavirus-updates
 This is a project that will send regular updates to the subscribers about coronavirus statistics in their country. The application is currently hosted at [Coronavirus Updates](http://ec2-13-126-87-109.ap-south-1.compute.amazonaws.com:3000).
 
+![Home Page](https://user-images.githubusercontent.com/46627073/78516325-bf098400-77d6-11ea-8e71-da15344630e0.png)
+
 </div>
 
 ------------------------------------------
@@ -10,6 +12,7 @@ This is a project that will send regular updates to the subscribers about corona
 ### Features
 
 - A web app where visitors can subscribe for regular updates and/or check the current stats.
+![Stats on web page](https://user-images.githubusercontent.com/46627073/78516726-3986d380-77d8-11ea-9bb3-b0d0cc1b96ec.png)
 - Subscribers will recieve emails daily about the stats in their country. 
 - The information is gathered and updated in real time from [Worldometers](https://www.worldometers.info/coronavirus/) which collects this data from reliable sources such as Governments' communication channels.
 
