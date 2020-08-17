@@ -1,7 +1,7 @@
 <div align="center">
 
 # coronavirus-updates
-This is a project that will send regular updates to the subscribers about coronavirus statistics in their country. The application is currently hosted at [Coronavirus Updates](http://ec2-13-126-87-109.ap-south-1.compute.amazonaws.com:3000).
+This is a project that will send regular updates to the subscribers about coronavirus statistics in their country.
 
 ![Home Page](https://user-images.githubusercontent.com/46627073/78516325-bf098400-77d6-11ea-8e71-da15344630e0.png)
 
